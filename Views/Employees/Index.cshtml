@@ -1,0 +1,26 @@
+@model IEnumerable<Employee>
+@{ ViewData["Title"] = "Employee List"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div><h2 class="mb-1">Employee List</h2><p class="text-muted mb-0">Manage employee records</p></div>
+    <a asp-action="Create" class="btn btn-primary">+ Create Employee</a>
+</div>
+<div class="card p-3">
+<table class="table table-hover align-middle mb-0">
+    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Department</th><th>Designation</th><th>Salary</th><th>Joining Date</th><th>Actions</th></tr></thead>
+    <tbody>
+    @if (!Model.Any()) { <tr><td colspan="8" class="text-center text-muted py-4">No employees found. Create your first employee.</td></tr> }
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.Id</td><td>@item.FullName</td><td>@item.Email</td><td>@item.Department</td>
+            <td>@item.Designation</td><td>@item.Salary.ToString("N2")</td><td>@item.JoiningDate.ToString("dd-MMM-yyyy")</td>
+            <td class="text-nowrap">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Delete this employee?');">
+                    @Html.AntiForgeryToken()<button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</div>

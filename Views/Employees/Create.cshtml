@@ -1,0 +1,11 @@
+@model Employee
+@{ ViewData["Title"] = "Create Employee"; }
+<div class="card p-4">
+    <h2>Create Employee</h2><p class="text-muted">Enter employee details below.</p>
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <partial name="_EmployeeForm" model="Model" />
+        <div class="mt-4"><button type="submit" class="btn btn-primary">Save Employee</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a></div>
+    </form>
+</div>
